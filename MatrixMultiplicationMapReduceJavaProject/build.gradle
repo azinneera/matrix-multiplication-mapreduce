@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+group 'sample.matrixmutiplication.mapreduce'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.apache.hadoop', name: 'hadoop-mapreduce-client-core', version: '3.3.1'
+    implementation group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.3.1'
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "test.sample.mapreduce.MatrixMultiplication"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
